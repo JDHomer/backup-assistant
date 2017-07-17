@@ -1,0 +1,9 @@
+D:\Codes\CSharp\BackUpFilesSingle\BackUpFilesSingle\bin\Debug\BackUpFilesSingle.exe.config
+D:\Codes\CSharp\BackUpFilesSingle\BackUpFilesSingle\bin\Debug\BackUpFilesSingle.exe
+D:\Codes\CSharp\BackUpFilesSingle\BackUpFilesSingle\bin\Debug\BackUpFilesSingle.pdb
+D:\Codes\CSharp\BackUpFilesSingle\BackUpFilesSingle\obj\Debug\BackUpFilesSingle.Form1.resources
+D:\Codes\CSharp\BackUpFilesSingle\BackUpFilesSingle\obj\Debug\BackUpFilesSingle.Properties.Resources.resources
+D:\Codes\CSharp\BackUpFilesSingle\BackUpFilesSingle\obj\Debug\BackUpFilesSingle.csproj.GenerateResource.Cache
+D:\Codes\CSharp\BackUpFilesSingle\BackUpFilesSingle\obj\Debug\BackUpFilesSingle.exe
+D:\Codes\CSharp\BackUpFilesSingle\BackUpFilesSingle\obj\Debug\BackUpFilesSingle.pdb
+D:\Codes\CSharp\BackUpFilesSingle\BackUpFilesSingle\obj\Debug\BackUpFilesSingle.csprojResolveAssemblyReference.cache
