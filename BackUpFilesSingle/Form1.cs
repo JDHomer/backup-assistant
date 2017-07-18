@@ -298,7 +298,7 @@ namespace BackUpFilesSingle
             using (FolderBrowserDialog fbd = new FolderBrowserDialog() { Description = "Select a folder." })
             {
                 if (folderColB.Count > 0)
-                    fbd.SelectedPath = folderColA[folderColB.Count - 1];
+                    fbd.SelectedPath = folderColB[folderColB.Count - 1];
 
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
