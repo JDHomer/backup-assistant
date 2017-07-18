@@ -451,20 +451,6 @@ namespace BackUpFilesSingle
             thread.Start(pair);
         }
 
-        private void startSyncThread(object o)
-        {
-            Pair p = (Pair)o;
-            //startSync(p.source, p.target);
-
-            addToListBox("Finished.");
-            updateLabel("");
-            setButtons(true);
-            finished = true;
-
-            refreshA();
-            refreshB();
-        }
-
         private void startSync(object o)
         {
             Pair pair = (Pair)o;
@@ -484,7 +470,7 @@ namespace BackUpFilesSingle
                 makeSets(source, out sourceFileSet, out sourceDirSet);
                 makeSets(target, out targetFileSet, out targetDirSet);
 
-                synchFiles(source, target, sourceFileSet, targetFileSet);
+                syncFiles(source, target, sourceFileSet, targetFileSet);
 
                 // Dirs in both
                 foreach (string path in sourceDirSet.Intersect(targetDirSet))
@@ -536,7 +522,7 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void synchFiles(string source, string target, HashSet<string> sourceFileSet, HashSet<string> targetFileSet)
+        private void syncFiles(string source, string target, HashSet<string> sourceFileSet, HashSet<string> targetFileSet)
         {
             // Files in both
             foreach (string path in sourceFileSet.Intersect(targetFileSet))
@@ -575,32 +561,6 @@ namespace BackUpFilesSingle
                 File.Copy(sourcePath, targetPath);
             }
         }
-
-        //private void synchFolder(string source, string target, HashSet<string> sourceDirSet, HashSet<string> targetDirSet)
-        //{
-        //    // Dirs in both
-        //    foreach (string path in sourceDirSet.Intersect(targetDirSet))
-        //    {
-        //        string sourcePath = source + '\\' + path;
-        //        string targetPath = target + '\\' + path;
-
-        //        startSync(sourcePath, targetPath);
-        //    }
-
-        //    // New dir
-        //    foreach (string path in sourceDirSet.Except(targetDirSet))
-        //    {
-        //        string sourcePath = source + '\\' + path;
-        //        string targetPath = target + '\\' + path;
-
-        //        string log = string.Format("[New Folder] - {0}: {1} -> {2}", path, source, target);
-        //        addToListBox(log);
-        //        Directory.CreateDirectory(targetPath);
-
-        //        //copyFiles(sourcePath, targetPath);
-        //        startSync(sourcePath, targetPath);
-        //    }
-        //}
 
         private void copyFiles(string sourcePath, string targetPath)
         {
