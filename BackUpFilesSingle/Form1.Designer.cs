@@ -59,6 +59,7 @@
             this.labelScanning = new System.Windows.Forms.Label();
             this.labelScanningPath = new System.Windows.Forms.Label();
             this.buttonAbort = new System.Windows.Forms.Button();
+            this.buttonClear = new System.Windows.Forms.Button();
             this.groupBox.SuspendLayout();
             this.groupBoxDetail.SuspendLayout();
             this.SuspendLayout();
@@ -337,7 +338,7 @@
             // 
             this.labelScanningPath.Location = new System.Drawing.Point(73, 441);
             this.labelScanningPath.Name = "labelScanningPath";
-            this.labelScanningPath.Size = new System.Drawing.Size(964, 13);
+            this.labelScanningPath.Size = new System.Drawing.Size(883, 13);
             this.labelScanningPath.TabIndex = 20;
             // 
             // buttonAbort
@@ -350,12 +351,23 @@
             this.buttonAbort.UseVisualStyleBackColor = true;
             this.buttonAbort.Click += new System.EventHandler(this.buttonAbort_Click);
             // 
+            // buttonClear
+            // 
+            this.buttonClear.Location = new System.Drawing.Point(962, 436);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(75, 23);
+            this.buttonClear.TabIndex = 22;
+            this.buttonClear.Text = "Clear";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1049, 699);
+            this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonAbort);
             this.Controls.Add(this.labelScanningPath);
             this.Controls.Add(this.labelScanning);
@@ -421,6 +433,7 @@
         private System.Windows.Forms.Label labelScanning;
         private System.Windows.Forms.Label labelScanningPath;
         private System.Windows.Forms.Button buttonAbort;
+        private System.Windows.Forms.Button buttonClear;
     }
 }
 

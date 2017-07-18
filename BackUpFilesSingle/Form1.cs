@@ -624,5 +624,10 @@ namespace BackUpFilesSingle
                 this.target = target;
             }
         }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            listBox.Items.Clear();
+        }
     }
 }
