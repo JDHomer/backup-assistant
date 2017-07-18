@@ -401,10 +401,10 @@ namespace BackUpFilesSingle
 
             thread.Abort();
 
-            setButtons(true);
-            finished = true;
             addToListBox("Aborted.");
             updateLabel("");
+            setButtons(true);
+            finished = true;
 
             refreshA();
             refreshB();
@@ -433,7 +433,7 @@ namespace BackUpFilesSingle
                         + source
                         + "\nto\n"
                         + target
-                        + "\nChoose Yes to proceed?";
+                        + "\nChoose Yes to proceed.";
 
             DialogResult result = MessageBox.Show(body, title, MessageBoxButtons.YesNo);
             if (result == DialogResult.No)
@@ -441,34 +441,31 @@ namespace BackUpFilesSingle
                 return;
             }
 
-            addToListBox("Begin Synchronization.");
             setButtons(false);
             finished = false;
-
-            ParameterizedThreadStart pts = new ParameterizedThreadStart(startSynchThread);
+            addToListBox("Begin Synchronization.");
+            
+            ParameterizedThreadStart pts = new ParameterizedThreadStart(startSyncThread);
             thread = new Thread(pts);
             Pair pair = new Pair(source, target);
             thread.Start(pair);
         }
 
-        private void setButtons(bool value)
+        private void startSyncThread(object o)
         {
-            BeginInvoke(new Action(() =>
-            {
-                buttonBackA.Enabled = value;
-                buttonBackB.Enabled = value;
-                buttonGoUpA.Enabled = value;
-                buttonGoUpB.Enabled = value;
-                buttonRefreshA.Enabled = value;
-                buttonRefreshB.Enabled = value;
-                buttonOpenA.Enabled = value;
-                buttonOpenB.Enabled = value;
-                buttonAToB.Enabled = value;
-                buttonBToA.Enabled = value;
-            }));
+            Pair p = (Pair)o;
+            startSync(p.source, p.target);
+
+            addToListBox("Finished.");
+            updateLabel("");
+            setButtons(true);
+            finished = true;
+
+            refreshA();
+            refreshB();
         }
 
-        private void startSynch(string source, string target)
+        private void startSync(string source, string target)
         {
             HashSet<string> sourceFileSet;
             HashSet<string> sourceDirSet;
@@ -549,7 +546,7 @@ namespace BackUpFilesSingle
                 string sourcePath = source + '\\' + path;
                 string targetPath = target + '\\' + path;
 
-                startSynch(sourcePath, targetPath);
+                startSync(sourcePath, targetPath);
             }
 
             // New dir
@@ -562,7 +559,8 @@ namespace BackUpFilesSingle
                 addToListBox(log);
                 Directory.CreateDirectory(targetPath);
 
-                copyFiles(sourcePath, targetPath);
+                //copyFiles(sourcePath, targetPath);
+                startSync(sourcePath, targetPath);
             }
         }
 
@@ -583,20 +581,6 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void startSynchThread(object o)
-        {
-            Pair p = (Pair)o;
-            startSynch(p.source, p.target);
-
-            setButtons(true);
-            finished = true;
-            addToListBox("Finished.");
-            updateLabel("");
-
-            refreshA();
-            refreshB();
-        }
-
         private void updateLabel(string s)
         {
             BeginInvoke(new Action(() =>
@@ -611,6 +595,23 @@ namespace BackUpFilesSingle
             {
                 listBox.Items.Add(s);
                 listBox.TopIndex = listBox.Items.Count - 1;
+            }));
+        }
+
+        private void setButtons(bool value)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                buttonBackA.Enabled = value;
+                buttonBackB.Enabled = value;
+                buttonGoUpA.Enabled = value;
+                buttonGoUpB.Enabled = value;
+                buttonRefreshA.Enabled = value;
+                buttonRefreshB.Enabled = value;
+                buttonOpenA.Enabled = value;
+                buttonOpenB.Enabled = value;
+                buttonAToB.Enabled = value;
+                buttonBToA.Enabled = value;
             }));
         }
 
