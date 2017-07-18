@@ -445,7 +445,7 @@ namespace BackUpFilesSingle
             finished = false;
             addToListBox("Begin Synchronization.");
             
-            ParameterizedThreadStart pts = new ParameterizedThreadStart(startSyncThread);
+            ParameterizedThreadStart pts = new ParameterizedThreadStart(startSync);
             thread = new Thread(pts);
             Pair pair = new Pair(source, target);
             thread.Start(pair);
@@ -454,7 +454,7 @@ namespace BackUpFilesSingle
         private void startSyncThread(object o)
         {
             Pair p = (Pair)o;
-            startSync(p.source, p.target);
+            //startSync(p.source, p.target);
 
             addToListBox("Finished.");
             updateLabel("");
@@ -465,18 +465,56 @@ namespace BackUpFilesSingle
             refreshB();
         }
 
-        private void startSync(string source, string target)
+        private void startSync(object o)
         {
-            HashSet<string> sourceFileSet;
-            HashSet<string> sourceDirSet;
-            makeSets(source, out sourceFileSet, out sourceDirSet);
+            Pair pair = (Pair)o;
+            Queue<Pair> folderQueue = new Queue<Pair>();
+            folderQueue.Enqueue(pair);
 
-            HashSet<string> targetFileSet;
-            HashSet<string> targetDirSet;
-            makeSets(target, out targetFileSet, out targetDirSet);
+            while (folderQueue.Count != 0)
+            {
+                Pair p = folderQueue.Dequeue();
+                string source = p.source;
+                string target = p.target;
 
-            synchFolder(source, target, sourceDirSet, targetDirSet);
-            synchFiles(source, target, sourceFileSet, targetFileSet);
+                HashSet<string> sourceFileSet;
+                HashSet<string> sourceDirSet;
+                HashSet<string> targetFileSet;
+                HashSet<string> targetDirSet;
+                makeSets(source, out sourceFileSet, out sourceDirSet);
+                makeSets(target, out targetFileSet, out targetDirSet);
+
+                synchFiles(source, target, sourceFileSet, targetFileSet);
+
+                // Dirs in both
+                foreach (string path in sourceDirSet.Intersect(targetDirSet))
+                {
+                    string sourcePath = source + '\\' + path;
+                    string targetPath = target + '\\' + path;
+
+                    folderQueue.Enqueue(new Pair(sourcePath, targetPath));
+                }
+
+                // New dir
+                foreach (string path in sourceDirSet.Except(targetDirSet))
+                {
+                    string sourcePath = source + '\\' + path;
+                    string targetPath = target + '\\' + path;
+
+                    string log = string.Format("[New Folder] - {0}: {1} -> {2}", path, source, target);
+                    addToListBox(log);
+                    Directory.CreateDirectory(targetPath);
+                    folderQueue.Enqueue(new Pair(sourcePath, targetPath));
+                }
+            }
+
+            addToListBox("Finished.");
+            updateLabel("");
+            setButtons(true);
+            finished = true;
+
+            refreshA();
+            refreshB();
         }
 
         private void makeSets(string path, out HashSet<string> fileSet, out HashSet<string> dirSet)
@@ -538,31 +576,31 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void synchFolder(string source, string target, HashSet<string> sourceDirSet, HashSet<string> targetDirSet)
-        {
-            // Dirs in both
-            foreach (string path in sourceDirSet.Intersect(targetDirSet))
-            {
-                string sourcePath = source + '\\' + path;
-                string targetPath = target + '\\' + path;
+        //private void synchFolder(string source, string target, HashSet<string> sourceDirSet, HashSet<string> targetDirSet)
+        //{
+        //    // Dirs in both
+        //    foreach (string path in sourceDirSet.Intersect(targetDirSet))
+        //    {
+        //        string sourcePath = source + '\\' + path;
+        //        string targetPath = target + '\\' + path;
 
-                startSync(sourcePath, targetPath);
-            }
+        //        startSync(sourcePath, targetPath);
+        //    }
 
-            // New dir
-            foreach (string path in sourceDirSet.Except(targetDirSet))
-            {
-                string sourcePath = source + '\\' + path;
-                string targetPath = target + '\\' + path;
+        //    // New dir
+        //    foreach (string path in sourceDirSet.Except(targetDirSet))
+        //    {
+        //        string sourcePath = source + '\\' + path;
+        //        string targetPath = target + '\\' + path;
 
-                string log = string.Format("[New Folder] - {0}: {1} -> {2}", path, source, target);
-                addToListBox(log);
-                Directory.CreateDirectory(targetPath);
+        //        string log = string.Format("[New Folder] - {0}: {1} -> {2}", path, source, target);
+        //        addToListBox(log);
+        //        Directory.CreateDirectory(targetPath);
 
-                //copyFiles(sourcePath, targetPath);
-                startSync(sourcePath, targetPath);
-            }
-        }
+        //        //copyFiles(sourcePath, targetPath);
+        //        startSync(sourcePath, targetPath);
+        //    }
+        //}
 
         private void copyFiles(string sourcePath, string targetPath)
         {
