@@ -12,16 +12,17 @@ using System.Windows.Forms;
 
 namespace BackUpFilesSingle
 {
-    public partial class Form1 : Form
+    public partial class FormBackupAssistant : System.Windows.Forms.Form
     {
         private System.Collections.Specialized.StringCollection folderColA;
         private System.Collections.Specialized.StringCollection folderColB;
         private bool finished;
         private Thread thread;
 
-        public Form1()
+        public FormBackupAssistant()
         {
             InitializeComponent();
+            InitializeFormText();
 
             finished = true;
             folderColA = new System.Collections.Specialized.StringCollection();
@@ -38,9 +39,36 @@ namespace BackUpFilesSingle
         {
             if (!finished)
             {
-                MessageBox.Show("Please wait until the sync finished or abort it.", "Warning", MessageBoxButtons.OK);
+                MessageBox.Show(StringValues.formClosingBody, StringValues.formClosingTitle, MessageBoxButtons.OK);
                 e.Cancel = true;
             }
+        }
+
+        private void InitializeFormText()
+        {
+            this.Text = StringValues.formText;
+            labelFolderA.Text = StringValues.labelFolderAText;
+            labelFolderB.Text = StringValues.labelFolderBText;
+            labelScanning.Text = StringValues.labelScanningText;
+            groupBoxDetail.Text = StringValues.groupBoxDetailText;
+            groupBoxViewMode.Text = StringValues.groupBoxViewModeText;
+            radioButtonLargeIcon.Text = StringValues.radioButtionLargeIconText;
+            radioButtonSmallIcon.Text = StringValues.radioButtionSmallIconText;
+            radioButtonList.Text = StringValues.radioButtionListText;
+            radioButtonDetails.Text = StringValues.radioButtionDetailsText;
+            radioButtonTile.Text = StringValues.radioButtionTileText;
+            buttonBackA.Text = StringValues.buttonBackText;
+            buttonBackB.Text = StringValues.buttonBackText;
+            buttonGoUpA.Text = StringValues.buttonGoUpText;
+            buttonGoUpB.Text = StringValues.buttonGoUpText;
+            buttonRefreshA.Text = StringValues.buttonRefreshText;
+            buttonRefreshB.Text = StringValues.buttonRefreshText;
+            buttonOpenA.Text = StringValues.buttonOpenText;
+            buttonOpenB.Text = StringValues.buttonOpenText;
+            buttonAbort.Text = StringValues.buttonAbortText;
+            buttonClear.Text = StringValues.buttonClearText;
+
+            this.Refresh();
         }
 
         private void CreateHeaderAndFillListView()
@@ -48,32 +76,32 @@ namespace BackUpFilesSingle
             ColumnHeader colHead;
 
             colHead = new ColumnHeader();
-            colHead.Text = "Filename";
+            colHead.Text = StringValues.colHeadFileName;
             colHead.Width = 120;
             listViewA.Columns.Add(colHead); // Insert the header
 
             colHead = new ColumnHeader();
-            colHead.Text = "Filename";
+            colHead.Text = StringValues.colHeadFileName;
             colHead.Width = 120;
             listViewB.Columns.Add(colHead); // Insert the header
 
             colHead = new ColumnHeader();
-            colHead.Text = "Size";
+            colHead.Text = StringValues.colHeadSize;
             colHead.Width = 120;
             listViewA.Columns.Add(colHead); // Insert the header
 
             colHead = new ColumnHeader();
-            colHead.Text = "Size";
+            colHead.Text = StringValues.colHeadSize;
             colHead.Width = 120;
             listViewB.Columns.Add(colHead); // Insert the header
 
             colHead = new ColumnHeader();
-            colHead.Text = "Last accessed";
+            colHead.Text = StringValues.colHeadLastAccess;
             colHead.Width = 120;
             listViewA.Columns.Add(colHead); // Insert the header
 
             colHead = new ColumnHeader();
-            colHead.Text = "Last accessed";
+            colHead.Text = StringValues.colHeadLastAccess;
             colHead.Width = 120;
             listViewB.Columns.Add(colHead); // Insert the header
         }
@@ -206,7 +234,7 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void radioButtonLargeIcon_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonLargeIcon_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton rdb = (RadioButton)sender;
             if (rdb.Checked)
@@ -216,7 +244,7 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void radioButtonSmallIcon_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonSmallIcon_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton rdb = (RadioButton)sender;
             if (rdb.Checked)
@@ -226,7 +254,7 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void radioButtonList_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonList_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton rdb = (RadioButton)sender;
             if (rdb.Checked)
@@ -236,7 +264,7 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void radioButtonDetails_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonDetails_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton rdb = (RadioButton)sender;
             if (rdb.Checked)
@@ -246,7 +274,7 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void radioButtonTile_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonTile_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton rdb = (RadioButton)sender;
             if (rdb.Checked)
@@ -256,7 +284,7 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void listViewA_ItemActivate(object sender, EventArgs e)
+        private void ListViewA_ItemActivate(object sender, EventArgs e)
         {
             System.Windows.Forms.ListView lw = (System.Windows.Forms.ListView)sender;
             string filename = lw.SelectedItems[0].Tag.ToString();
@@ -267,7 +295,7 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void listViewB_ItemActivate(object sender, EventArgs e)
+        private void ListViewB_ItemActivate(object sender, EventArgs e)
         {
             System.Windows.Forms.ListView lw = (System.Windows.Forms.ListView)sender;
             string filename = lw.SelectedItems[0].Tag.ToString();
@@ -278,9 +306,9 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void buttonOpenA_Click(object sender, EventArgs e)
+        private void ButtonOpenA_Click(object sender, EventArgs e)
         {
-            using (FolderBrowserDialog fbd = new FolderBrowserDialog() { Description = "Select a folder." })
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog() { Description = StringValues.folderBrowserDialogDescription })
             {
                 if (folderColA.Count > 0)
                     fbd.SelectedPath = folderColA[folderColA.Count - 1];
@@ -293,9 +321,9 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void buttonOpenB_Click(object sender, EventArgs e)
+        private void ButtonOpenB_Click(object sender, EventArgs e)
         {
-            using (FolderBrowserDialog fbd = new FolderBrowserDialog() { Description = "Select a folder." })
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog() { Description = StringValues.folderBrowserDialogDescription })
             {
                 if (folderColB.Count > 0)
                     fbd.SelectedPath = folderColB[folderColB.Count - 1];
@@ -308,7 +336,7 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void buttonBackA_Click(object sender, EventArgs e)
+        private void ButtonBackA_Click(object sender, EventArgs e)
         {
             if (folderColA.Count > 1)
             {
@@ -319,7 +347,7 @@ namespace BackUpFilesSingle
                 PaintListViewA(folderColA[0].ToString());
         }
 
-        private void buttonBackB_Click(object sender, EventArgs e)
+        private void ButtonBackB_Click(object sender, EventArgs e)
         {
             if (folderColB.Count > 1)
             {
@@ -330,7 +358,7 @@ namespace BackUpFilesSingle
                 PaintListViewB(folderColB[0].ToString());
         }
 
-        private void buttonGoUpA_Click(object sender, EventArgs e)
+        private void ButtonGoUpA_Click(object sender, EventArgs e)
         {
             if (folderColA.Count == 1)
                 return;
@@ -350,7 +378,7 @@ namespace BackUpFilesSingle
             folderColA.Add(sb.ToString());
         }
 
-        private void buttonGoUpB_Click(object sender, EventArgs e)
+        private void ButtonGoUpB_Click(object sender, EventArgs e)
         {
             if (folderColB.Count == 1)
                 return;
@@ -370,47 +398,52 @@ namespace BackUpFilesSingle
             folderColB.Add(sb.ToString());
         }
 
-        private void buttonRefreshA_Click(object sender, EventArgs e)
+        private void ButtonRefreshA_Click(object sender, EventArgs e)
         {
-            refreshA();
+            RefreshA();
         }
 
-        private void buttonRefreshB_Click(object sender, EventArgs e)
+        private void ButtonRefreshB_Click(object sender, EventArgs e)
         {
-            refreshB();
+            RefreshB();
         }
 
-        private void buttonAToB_Click(object sender, EventArgs e)
+        private void ButtonAToB_Click(object sender, EventArgs e)
         {
             string source = folderColA[folderColA.Count - 1];
             string target = folderColB[folderColB.Count - 1];
-            beforeStart(source, target);
+            BeforeStart(source, target);
         }
 
-        private void buttonBToA_Click(object sender, EventArgs e)
+        private void ButtonBToA_Click(object sender, EventArgs e)
         {
             string source = folderColB[folderColB.Count - 1];
             string target = folderColA[folderColA.Count - 1];
-            beforeStart(source, target);
+            BeforeStart(source, target);
         }
 
-        private void buttonAbort_Click(object sender, EventArgs e)
+        private void ButtonAbort_Click(object sender, EventArgs e)
         {
             if (finished)
                 return;
 
             thread.Abort();
 
-            addToListBox("Aborted.");
-            updateLabel("");
-            setButtons(true);
+            AddToListBox(StringValues.syncAborted);
+            UpdateLabel(StringValues.empty);
+            SetButtons(true);
             finished = true;
 
-            refreshA();
-            refreshB();
+            RefreshA();
+            RefreshB();
         }
 
-        private void refreshA()
+        private void ButtonClear_Click(object sender, EventArgs e)
+        {
+            listBox.Items.Clear();
+        }
+
+        private void RefreshA()
         {
             BeginInvoke(new Action(() =>
             {
@@ -418,7 +451,7 @@ namespace BackUpFilesSingle
             }));            
         }
 
-        private void refreshB()
+        private void RefreshB()
         {
             BeginInvoke(new Action(() =>
             {
@@ -426,14 +459,10 @@ namespace BackUpFilesSingle
             }));
         }
 
-        private void beforeStart(string source, string target)
+        private void BeforeStart(string source, string target)
         {
-            string title = "PLEASE CONFIRM!";
-            string body = "Files will be synced from\n"
-                        + source
-                        + "\nto\n"
-                        + target
-                        + "\nChoose Yes to proceed.";
+            string title = StringValues.beforeSyncTitle;
+            string body = string.Format(StringValues.beforeSyncBodyFormat, source, target);
 
             DialogResult result = MessageBox.Show(body, title, MessageBoxButtons.YesNo);
             if (result == DialogResult.No)
@@ -441,17 +470,17 @@ namespace BackUpFilesSingle
                 return;
             }
 
-            setButtons(false);
+            SetButtons(false);
             finished = false;
-            addToListBox("Begin Synchronization.");
+            AddToListBox(StringValues.syncStart);
             
-            ParameterizedThreadStart pts = new ParameterizedThreadStart(startSync);
+            ParameterizedThreadStart pts = new ParameterizedThreadStart(StartSync);
             thread = new Thread(pts);
             Pair pair = new Pair(source, target);
             thread.Start(pair);
         }
 
-        private void startSync(object o)
+        private void StartSync(object o)
         {
             Pair pair = (Pair)o;
             Queue<Pair> folderQueue = new Queue<Pair>();
@@ -467,43 +496,23 @@ namespace BackUpFilesSingle
                 HashSet<string> sourceDirSet;
                 HashSet<string> targetFileSet;
                 HashSet<string> targetDirSet;
-                makeSets(source, out sourceFileSet, out sourceDirSet);
-                makeSets(target, out targetFileSet, out targetDirSet);
+                MakeSets(source, out sourceFileSet, out sourceDirSet);
+                MakeSets(target, out targetFileSet, out targetDirSet);
 
-                syncFiles(source, target, sourceFileSet, targetFileSet);
-
-                // Dirs in both
-                foreach (string path in sourceDirSet.Intersect(targetDirSet))
-                {
-                    string sourcePath = source + '\\' + path;
-                    string targetPath = target + '\\' + path;
-
-                    folderQueue.Enqueue(new Pair(sourcePath, targetPath));
-                }
-
-                // New dir
-                foreach (string path in sourceDirSet.Except(targetDirSet))
-                {
-                    string sourcePath = source + '\\' + path;
-                    string targetPath = target + '\\' + path;
-
-                    string log = string.Format("[New Folder] - {0}: {1} -> {2}", path, source, target);
-                    addToListBox(log);
-                    Directory.CreateDirectory(targetPath);
-                    folderQueue.Enqueue(new Pair(sourcePath, targetPath));
-                }
+                SyncFiles(source, target, sourceFileSet, targetFileSet);
+                SyncFolders(source, target, sourceDirSet, targetDirSet, folderQueue);
             }
 
-            addToListBox("Finished.");
-            updateLabel("");
-            setButtons(true);
+            AddToListBox(StringValues.syncFinished);
+            UpdateLabel(StringValues.empty);
+            SetButtons(true);
             finished = true;
 
-            refreshA();
-            refreshB();
+            RefreshA();
+            RefreshB();
         }
 
-        private void makeSets(string path, out HashSet<string> fileSet, out HashSet<string> dirSet)
+        private void MakeSets(string path, out HashSet<string> fileSet, out HashSet<string> dirSet)
         {
             string[] paths = Directory.GetFiles(path);
             fileSet = new HashSet<string>();
@@ -522,7 +531,7 @@ namespace BackUpFilesSingle
             }
         }
 
-        private void syncFiles(string source, string target, HashSet<string> sourceFileSet, HashSet<string> targetFileSet)
+        private void SyncFiles(string source, string target, HashSet<string> sourceFileSet, HashSet<string> targetFileSet)
         {
             // Files in both
             foreach (string path in sourceFileSet.Intersect(targetFileSet))
@@ -536,13 +545,13 @@ namespace BackUpFilesSingle
                 string sourceTime = sourceFI.LastWriteTimeUtc.ToString();
                 string targetTime = targetFI.LastWriteTimeUtc.ToString();
 
-                updateLabel(sourcePath);
+                UpdateLabel(sourcePath);
 
                 if (sourceLength != targetLength || !sourceTime.Equals(targetTime))
                 {
                     // Output log
-                    string log = string.Format("[Updated File] - {0}: {1} -> {2}", path, source, target);
-                    addToListBox(log);
+                    string log = string.Format(StringValues.logUpdatedFileFormat, path, source, target);
+                    AddToListBox(log);
                     File.Copy(sourcePath, targetPath, true);
                 }
             }
@@ -553,33 +562,40 @@ namespace BackUpFilesSingle
                 string sourcePath = source + '\\' + path;
                 string targetPath = target + '\\' + path;
 
-                updateLabel(sourcePath);
+                UpdateLabel(sourcePath);
 
                 // Output log
-                string log = string.Format("[New File] - {0}: {1} -> {2}", path, source, target);
-                addToListBox(log);
+                string log = string.Format(StringValues.logNewFileFormat, path, source, target);
+                AddToListBox(log);
                 File.Copy(sourcePath, targetPath);
             }
         }
 
-        private void copyFiles(string sourcePath, string targetPath)
+        private void SyncFolders(string source, string target, HashSet<string> sourceDirSet, HashSet<string> targetDirSet, Queue<Pair> folderQueue)
         {
-            string[] fileList = Directory.GetFiles(sourcePath);
-
-            foreach (string file in fileList)
+            // Dirs in both
+            foreach (string path in sourceDirSet.Intersect(targetDirSet))
             {
-                string[] ss = file.Split('\\');
-                string fileName = ss[ss.Length - 1];
+                string sourcePath = source + '\\' + path;
+                string targetPath = target + '\\' + path;
 
-                updateLabel(sourcePath + '\\' + fileName);
+                folderQueue.Enqueue(new Pair(sourcePath, targetPath));
+            }
 
-                string log = string.Format("[New File] - {0}: {1} -> {2}", fileName, sourcePath, targetPath);
-                addToListBox(log);
-                File.Copy(file, targetPath + '\\' + fileName);
+            // New dir
+            foreach (string path in sourceDirSet.Except(targetDirSet))
+            {
+                string sourcePath = source + '\\' + path;
+                string targetPath = target + '\\' + path;
+
+                string log = string.Format(StringValues.logNewFolderFormat, path, source, target);
+                AddToListBox(log);
+                Directory.CreateDirectory(targetPath);
+                folderQueue.Enqueue(new Pair(sourcePath, targetPath));
             }
         }
 
-        private void updateLabel(string s)
+        private void UpdateLabel(string s)
         {
             BeginInvoke(new Action(() =>
             {
@@ -587,7 +603,7 @@ namespace BackUpFilesSingle
             }));
         }
 
-        private void addToListBox(string s)
+        private void AddToListBox(string s)
         {
             BeginInvoke(new Action(() =>
             {
@@ -596,7 +612,7 @@ namespace BackUpFilesSingle
             }));
         }
 
-        private void setButtons(bool value)
+        private void SetButtons(bool value)
         {
             BeginInvoke(new Action(() =>
             {
@@ -623,11 +639,6 @@ namespace BackUpFilesSingle
                 this.source = source;
                 this.target = target;
             }
-        }
-
-        private void buttonClear_Click(object sender, EventArgs e)
-        {
-            listBox.Items.Clear();
         }
     }
 }

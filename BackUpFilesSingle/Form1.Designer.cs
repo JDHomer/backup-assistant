@@ -1,6 +1,6 @@
 ﻿namespace BackUpFilesSingle
 {
-    partial class Form1
+    partial class FormBackupAssistant
     {
         /// <summary>
         /// Required designer variable.
@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBackupAssistant));
             this.listViewA = new System.Windows.Forms.ListView();
             this.imageListLarge = new System.Windows.Forms.ImageList(this.components);
             this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
             this.buttonBackA = new System.Windows.Forms.Button();
-            this.groupBox = new System.Windows.Forms.GroupBox();
+            this.groupBoxViewMode = new System.Windows.Forms.GroupBox();
             this.radioButtonTile = new System.Windows.Forms.RadioButton();
             this.radioButtonDetails = new System.Windows.Forms.RadioButton();
             this.radioButtonList = new System.Windows.Forms.RadioButton();
@@ -60,7 +60,7 @@
             this.labelScanningPath = new System.Windows.Forms.Label();
             this.buttonAbort = new System.Windows.Forms.Button();
             this.buttonClear = new System.Windows.Forms.Button();
-            this.groupBox.SuspendLayout();
+            this.groupBoxViewMode.SuspendLayout();
             this.groupBoxDetail.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,7 +74,7 @@
             this.listViewA.TabIndex = 0;
             this.listViewA.UseCompatibleStateImageBehavior = false;
             this.listViewA.View = System.Windows.Forms.View.Details;
-            this.listViewA.ItemActivate += new System.EventHandler(this.listViewA_ItemActivate);
+            this.listViewA.ItemActivate += new System.EventHandler(this.ListViewA_ItemActivate);
             // 
             // imageListLarge
             // 
@@ -98,22 +98,22 @@
             this.buttonBackA.TabIndex = 1;
             this.buttonBackA.Text = "Back";
             this.buttonBackA.UseVisualStyleBackColor = true;
-            this.buttonBackA.Click += new System.EventHandler(this.buttonBackA_Click);
+            this.buttonBackA.Click += new System.EventHandler(this.ButtonBackA_Click);
             // 
-            // groupBox
+            // groupBoxViewMode
             // 
-            this.groupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupBox.Controls.Add(this.radioButtonTile);
-            this.groupBox.Controls.Add(this.radioButtonDetails);
-            this.groupBox.Controls.Add(this.radioButtonList);
-            this.groupBox.Controls.Add(this.radioButtonSmallIcon);
-            this.groupBox.Controls.Add(this.radioButtonLargeIcon);
-            this.groupBox.Location = new System.Drawing.Point(462, 12);
-            this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(127, 147);
-            this.groupBox.TabIndex = 3;
-            this.groupBox.TabStop = false;
-            this.groupBox.Text = "View Mode";
+            this.groupBoxViewMode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBoxViewMode.Controls.Add(this.radioButtonTile);
+            this.groupBoxViewMode.Controls.Add(this.radioButtonDetails);
+            this.groupBoxViewMode.Controls.Add(this.radioButtonList);
+            this.groupBoxViewMode.Controls.Add(this.radioButtonSmallIcon);
+            this.groupBoxViewMode.Controls.Add(this.radioButtonLargeIcon);
+            this.groupBoxViewMode.Location = new System.Drawing.Point(462, 12);
+            this.groupBoxViewMode.Name = "groupBoxViewMode";
+            this.groupBoxViewMode.Size = new System.Drawing.Size(127, 147);
+            this.groupBoxViewMode.TabIndex = 3;
+            this.groupBoxViewMode.TabStop = false;
+            this.groupBoxViewMode.Text = "View Mode";
             // 
             // radioButtonTile
             // 
@@ -124,7 +124,7 @@
             this.radioButtonTile.TabIndex = 0;
             this.radioButtonTile.Text = "Tile";
             this.radioButtonTile.UseVisualStyleBackColor = true;
-            this.radioButtonTile.CheckedChanged += new System.EventHandler(this.radioButtonTile_CheckedChanged);
+            this.radioButtonTile.CheckedChanged += new System.EventHandler(this.RadioButtonTile_CheckedChanged);
             // 
             // radioButtonDetails
             // 
@@ -137,7 +137,7 @@
             this.radioButtonDetails.TabStop = true;
             this.radioButtonDetails.Text = "Details";
             this.radioButtonDetails.UseVisualStyleBackColor = true;
-            this.radioButtonDetails.CheckedChanged += new System.EventHandler(this.radioButtonDetails_CheckedChanged);
+            this.radioButtonDetails.CheckedChanged += new System.EventHandler(this.RadioButtonDetails_CheckedChanged);
             // 
             // radioButtonList
             // 
@@ -148,7 +148,7 @@
             this.radioButtonList.TabIndex = 0;
             this.radioButtonList.Text = "List";
             this.radioButtonList.UseVisualStyleBackColor = true;
-            this.radioButtonList.CheckedChanged += new System.EventHandler(this.radioButtonList_CheckedChanged);
+            this.radioButtonList.CheckedChanged += new System.EventHandler(this.RadioButtonList_CheckedChanged);
             // 
             // radioButtonSmallIcon
             // 
@@ -159,7 +159,7 @@
             this.radioButtonSmallIcon.TabIndex = 0;
             this.radioButtonSmallIcon.Text = "Small Icon";
             this.radioButtonSmallIcon.UseVisualStyleBackColor = true;
-            this.radioButtonSmallIcon.CheckedChanged += new System.EventHandler(this.radioButtonSmallIcon_CheckedChanged);
+            this.radioButtonSmallIcon.CheckedChanged += new System.EventHandler(this.RadioButtonSmallIcon_CheckedChanged);
             // 
             // radioButtonLargeIcon
             // 
@@ -170,7 +170,7 @@
             this.radioButtonLargeIcon.TabIndex = 0;
             this.radioButtonLargeIcon.Text = "Large Icon";
             this.radioButtonLargeIcon.UseVisualStyleBackColor = true;
-            this.radioButtonLargeIcon.CheckedChanged += new System.EventHandler(this.radioButtonLargeIcon_CheckedChanged);
+            this.radioButtonLargeIcon.CheckedChanged += new System.EventHandler(this.RadioButtonLargeIcon_CheckedChanged);
             // 
             // buttonOpenA
             // 
@@ -180,13 +180,14 @@
             this.buttonOpenA.TabIndex = 4;
             this.buttonOpenA.Text = "Open";
             this.buttonOpenA.UseVisualStyleBackColor = true;
-            this.buttonOpenA.Click += new System.EventHandler(this.buttonOpenA_Click);
+            this.buttonOpenA.Click += new System.EventHandler(this.ButtonOpenA_Click);
             // 
             // labelFolderA
             // 
+            this.labelFolderA.AutoSize = true;
             this.labelFolderA.Location = new System.Drawing.Point(13, 9);
             this.labelFolderA.Name = "labelFolderA";
-            this.labelFolderA.Size = new System.Drawing.Size(49, 14);
+            this.labelFolderA.Size = new System.Drawing.Size(49, 13);
             this.labelFolderA.TabIndex = 5;
             this.labelFolderA.Text = "Folder A:";
             // 
@@ -200,13 +201,14 @@
             this.listViewB.TabIndex = 0;
             this.listViewB.UseCompatibleStateImageBehavior = false;
             this.listViewB.View = System.Windows.Forms.View.Details;
-            this.listViewB.ItemActivate += new System.EventHandler(this.listViewB_ItemActivate);
+            this.listViewB.ItemActivate += new System.EventHandler(this.ListViewB_ItemActivate);
             // 
             // labelFolderB
             // 
+            this.labelFolderB.AutoSize = true;
             this.labelFolderB.Location = new System.Drawing.Point(596, 9);
             this.labelFolderB.Name = "labelFolderB";
-            this.labelFolderB.Size = new System.Drawing.Size(49, 14);
+            this.labelFolderB.Size = new System.Drawing.Size(49, 13);
             this.labelFolderB.TabIndex = 5;
             this.labelFolderB.Text = "Folder B:";
             // 
@@ -218,7 +220,7 @@
             this.buttonBackB.TabIndex = 1;
             this.buttonBackB.Text = "Back";
             this.buttonBackB.UseVisualStyleBackColor = true;
-            this.buttonBackB.Click += new System.EventHandler(this.buttonBackB_Click);
+            this.buttonBackB.Click += new System.EventHandler(this.ButtonBackB_Click);
             // 
             // buttonOpenB
             // 
@@ -228,7 +230,7 @@
             this.buttonOpenB.TabIndex = 4;
             this.buttonOpenB.Text = "Open";
             this.buttonOpenB.UseVisualStyleBackColor = true;
-            this.buttonOpenB.Click += new System.EventHandler(this.buttonOpenB_Click);
+            this.buttonOpenB.Click += new System.EventHandler(this.ButtonOpenB_Click);
             // 
             // buttonAToB
             // 
@@ -238,7 +240,7 @@
             this.buttonAToB.TabIndex = 8;
             this.buttonAToB.Text = ">>";
             this.buttonAToB.UseVisualStyleBackColor = true;
-            this.buttonAToB.Click += new System.EventHandler(this.buttonAToB_Click);
+            this.buttonAToB.Click += new System.EventHandler(this.ButtonAToB_Click);
             // 
             // listBox
             // 
@@ -257,7 +259,7 @@
             this.buttonGoUpA.TabIndex = 12;
             this.buttonGoUpA.Text = "Go Up";
             this.buttonGoUpA.UseVisualStyleBackColor = true;
-            this.buttonGoUpA.Click += new System.EventHandler(this.buttonGoUpA_Click);
+            this.buttonGoUpA.Click += new System.EventHandler(this.ButtonGoUpA_Click);
             // 
             // buttonGoUpB
             // 
@@ -267,7 +269,7 @@
             this.buttonGoUpB.TabIndex = 13;
             this.buttonGoUpB.Text = "Go Up";
             this.buttonGoUpB.UseVisualStyleBackColor = true;
-            this.buttonGoUpB.Click += new System.EventHandler(this.buttonGoUpB_Click);
+            this.buttonGoUpB.Click += new System.EventHandler(this.ButtonGoUpB_Click);
             // 
             // buttonBToA
             // 
@@ -277,22 +279,22 @@
             this.buttonBToA.TabIndex = 14;
             this.buttonBToA.Text = "<<";
             this.buttonBToA.UseVisualStyleBackColor = true;
-            this.buttonBToA.Click += new System.EventHandler(this.buttonBToA_Click);
+            this.buttonBToA.Click += new System.EventHandler(this.ButtonBToA_Click);
             // 
             // textBoxPathA
             // 
-            this.textBoxPathA.Location = new System.Drawing.Point(68, 6);
+            this.textBoxPathA.Location = new System.Drawing.Point(93, 6);
             this.textBoxPathA.Name = "textBoxPathA";
             this.textBoxPathA.ReadOnly = true;
-            this.textBoxPathA.Size = new System.Drawing.Size(388, 20);
+            this.textBoxPathA.Size = new System.Drawing.Size(363, 20);
             this.textBoxPathA.TabIndex = 15;
             // 
             // textBoxPathB
             // 
-            this.textBoxPathB.Location = new System.Drawing.Point(651, 6);
+            this.textBoxPathB.Location = new System.Drawing.Point(674, 6);
             this.textBoxPathB.Name = "textBoxPathB";
             this.textBoxPathB.ReadOnly = true;
-            this.textBoxPathB.Size = new System.Drawing.Size(386, 20);
+            this.textBoxPathB.Size = new System.Drawing.Size(363, 20);
             this.textBoxPathB.TabIndex = 16;
             // 
             // buttonRefreshA
@@ -303,7 +305,7 @@
             this.buttonRefreshA.TabIndex = 17;
             this.buttonRefreshA.Text = "Refresh";
             this.buttonRefreshA.UseVisualStyleBackColor = true;
-            this.buttonRefreshA.Click += new System.EventHandler(this.buttonRefreshA_Click);
+            this.buttonRefreshA.Click += new System.EventHandler(this.ButtonRefreshA_Click);
             // 
             // buttonRefreshB
             // 
@@ -313,7 +315,7 @@
             this.buttonRefreshB.TabIndex = 18;
             this.buttonRefreshB.Text = "Refresh";
             this.buttonRefreshB.UseVisualStyleBackColor = true;
-            this.buttonRefreshB.Click += new System.EventHandler(this.buttonRefreshB_Click);
+            this.buttonRefreshB.Click += new System.EventHandler(this.ButtonRefreshB_Click);
             // 
             // groupBoxDetail
             // 
@@ -349,7 +351,7 @@
             this.buttonAbort.TabIndex = 21;
             this.buttonAbort.Text = "Abort";
             this.buttonAbort.UseVisualStyleBackColor = true;
-            this.buttonAbort.Click += new System.EventHandler(this.buttonAbort_Click);
+            this.buttonAbort.Click += new System.EventHandler(this.ButtonAbort_Click);
             // 
             // buttonClear
             // 
@@ -359,9 +361,9 @@
             this.buttonClear.TabIndex = 22;
             this.buttonClear.Text = "Clear";
             this.buttonClear.UseVisualStyleBackColor = true;
-            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            this.buttonClear.Click += new System.EventHandler(this.ButtonClear_Click);
             // 
-            // Form1
+            // FormBackupAssistant
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -384,18 +386,18 @@
             this.Controls.Add(this.labelFolderA);
             this.Controls.Add(this.buttonOpenB);
             this.Controls.Add(this.buttonOpenA);
-            this.Controls.Add(this.groupBox);
+            this.Controls.Add(this.groupBoxViewMode);
             this.Controls.Add(this.buttonBackB);
             this.Controls.Add(this.buttonBackA);
             this.Controls.Add(this.listViewB);
             this.Controls.Add(this.listViewA);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "FormBackupAssistant";
             this.Text = "Backup Assistant";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.groupBox.ResumeLayout(false);
-            this.groupBox.PerformLayout();
+            this.groupBoxViewMode.ResumeLayout(false);
+            this.groupBoxViewMode.PerformLayout();
             this.groupBoxDetail.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -406,7 +408,7 @@
 
         private System.Windows.Forms.ListView listViewA;
         private System.Windows.Forms.Button buttonBackA;
-        private System.Windows.Forms.GroupBox groupBox;
+        private System.Windows.Forms.GroupBox groupBoxViewMode;
         private System.Windows.Forms.RadioButton radioButtonSmallIcon;
         private System.Windows.Forms.RadioButton radioButtonLargeIcon;
         private System.Windows.Forms.RadioButton radioButtonTile;
