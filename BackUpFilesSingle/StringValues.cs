@@ -10,6 +10,7 @@ namespace BackUpFilesSingle
     {
         // Runtime
         public static string empty = "";
+        public static string defaultPath = @"C:\";
 
         public static string colHeadFileName = "Filename";
         public static string colHeadSize = "Size";

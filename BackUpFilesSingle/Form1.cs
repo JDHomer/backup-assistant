@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BackUpFilesSingle.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,10 +30,7 @@ namespace BackUpFilesSingle
             folderColB = new System.Collections.Specialized.StringCollection();
 
             CreateHeaderAndFillListView();
-            PaintListViewA(@"C:\");
-            PaintListViewB(@"C:\");
-            folderColA.Add(@"C:\");
-            folderColB.Add(@"C:\");
+            LoadSettings();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -42,6 +40,8 @@ namespace BackUpFilesSingle
                 MessageBox.Show(StringValues.formClosingBody, StringValues.formClosingTitle, MessageBoxButtons.OK);
                 e.Cancel = true;
             }
+
+            SaveSettings();
         }
 
         private void InitializeFormText()
@@ -627,6 +627,32 @@ namespace BackUpFilesSingle
                 buttonAToB.Enabled = value;
                 buttonBToA.Enabled = value;
             }));
+        }
+
+        private void SaveSettings()
+        {
+            Settings.Default.PathA = textBoxPathA.Text;
+            Settings.Default.PathB = textBoxPathB.Text;
+            Settings.Default.Save();
+        }
+
+        private void LoadSettings()
+        {
+            string pathA = Settings.Default.PathA;
+            string pathB = Settings.Default.PathB;
+
+            if (!Directory.Exists(pathA))
+                pathA = StringValues.defaultPath;
+            if (!Directory.Exists(pathB))
+                pathB = StringValues.defaultPath;
+
+            textBoxPathA.Text = pathA;
+            textBoxPathB.Text = pathB;
+
+            PaintListViewA(pathA);
+            PaintListViewB(pathB);
+            folderColA.Add(pathA);
+            folderColB.Add(pathB);
         }
 
         private class Pair
