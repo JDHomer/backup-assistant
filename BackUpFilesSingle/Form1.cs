@@ -360,9 +360,6 @@ namespace BackUpFilesSingle
 
         private void ButtonGoUpA_Click(object sender, EventArgs e)
         {
-            if (folderColA.Count == 1)
-                return;
-
             string path = textBoxPathA.Text;
             string[] s = path.Split('\\');
 
@@ -371,8 +368,14 @@ namespace BackUpFilesSingle
 
             StringBuilder sb = new StringBuilder();
             sb.Append(s[0]);
-            for (int i = 1; i < s.Length - 1; i++)
-                sb.Append('\\').Append(s[i]);
+
+            if (s.Length == 2)
+                sb.Append('\\');
+            else
+            {
+                for (int i = 1; i < s.Length - 1; i++)
+                    sb.Append('\\').Append(s[i]);
+            }
 
             PaintListViewA(sb.ToString());
             folderColA.Add(sb.ToString());
@@ -380,9 +383,6 @@ namespace BackUpFilesSingle
 
         private void ButtonGoUpB_Click(object sender, EventArgs e)
         {
-            if (folderColB.Count == 1)
-                return;
-
             string path = textBoxPathB.Text;
             string[] s = path.Split('\\');
 
@@ -391,8 +391,14 @@ namespace BackUpFilesSingle
 
             StringBuilder sb = new StringBuilder();
             sb.Append(s[0]);
-            for (int i = 1; i < s.Length - 1; i++)
-                sb.Append('\\').Append(s[i]);
+
+            if (s.Length == 2)
+                sb.Append('\\');
+            else
+            {
+                for (int i = 1; i < s.Length - 1; i++)
+                    sb.Append('\\').Append(s[i]);
+            }
 
             PaintListViewB(sb.ToString());
             folderColB.Add(sb.ToString());
